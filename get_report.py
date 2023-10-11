@@ -195,14 +195,14 @@ if st.sidebar.button("Actualizar datos", type="primary"):
     st.cache_data.clear()
 st.sidebar.caption(f"La recarga de la página no actualiza los datos. En su lugar, use este botón para obtener un informe nuevo")
 
-period = st.sidebar.slider ("Seleccione la profundidad del informe en días (días desde la última actualización)", min_value=1, max_value=30, value=7)
+period = st.sidebar.slider ("Seleccione la profundidad del informe en días (días desde la última actualización)", min_value=1, max_value=60, value=7)
 
 @st.cache_data
 def get_cached_report(period, CLAIM_SECRETS):
     client_timezone = "America/Lima"
     date_to = datetime.datetime.now(timezone(client_timezone)) + datetime.timedelta(days=1)
     end_ = date_to.strftime("%Y-%m-%d")
-    date_from = datetime.datetime.now(timezone(client_timezone)) - datetime.timedelta(days=35)
+    date_from = datetime.datetime.now(timezone(client_timezone)) - datetime.timedelta(days=65)
     start_ = date_from.strftime("%Y-%m-%d")
     report = get_report(CLAIM_SECRETS, period, start_, end_)
     return report
